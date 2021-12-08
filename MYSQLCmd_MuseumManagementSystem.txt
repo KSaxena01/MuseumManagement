@@ -1,0 +1,131 @@
+create table staff(
+s_id int primary key,
+s_name varchar(20),
+phno varchar(10),
+email varchar(30),
+address varchar(50),
+dob date,
+designation varchar(20)
+);
+
+create table zone(
+z_id int primary key,
+z_name varchar(20)
+);
+
+create table maintenance(
+m_id int primary key,
+due_date date,
+status varchar(20),
+type varchar(20),
+z_id int,
+s_id int,
+foreign key (z_id) references zone(z_id),
+foreign key (s_id) references staff(s_id)
+);
+
+create table artifacts(
+a_id int primary key,
+a_name varchar(20),
+a_type varchar(20),
+z_id int,
+foreign key(z_id) references zone(z_id)
+);
+
+create table visitor(
+v_id int primary key,
+v_name varchar(20),
+phno varchar(10),
+email varchar(30),
+dob date,
+occupation varchar(20)
+);
+
+create table entry(
+dateentry date,
+timein varchar(20),
+duration int,
+category varchar(20),
+price int,
+v_id int,
+z_id int,
+foriegn key(v_id) references visitor(v_id),
+foreign key(z_id) references zone(z_id)
+);
+
+
+
+insert into staff values(101, 'Srijan', '7822053582', 'srijan@gmail.com', 'Panaji', STR_TO_DATE('03-02-2001', '%d-%m-%Y'), 'Curator');
+insert into staff values(102, 'Kshitij', '9422370914', 'kshitij@gmail.com', 'Jabalpur', STR_TO_DATE('01-01-2001','%d-%m-%Y'), 'Support Staff Head');
+insert into staff values(103, 'Prajwal', '8011477294', 'prajwal@gmail.com', 'Pune', STR_TO_DATE('09-01-2000','%d-%m-%Y'), 'Accountant');
+insert into staff values(104, 'Vedant', '9166729485', 'vendu@gmail.com', 'Andheri', STR_TO_DATE('28-02-2002','%d-%m-%Y'), 'Artifact Manager');
+insert into staff values(105, 'Konteya', '9803458195', 'konteya@gmail.com', 'Jaipur', STR_TO_DATE('22-09-1999','%d-%m-%Y'), 'Zone Manager');
+insert into staff values(106, 'Mohit', '8531728394', 'mohit@gmail.com', 'Kolhapur', STR_TO_DATE('31-03-1993','%d-%m-%Y'), 'Janitor');
+insert into staff values(107, 'Naman', '7881183495', 'naman@gmail.com', 'Gurgaon', STR_TO_DATE('14-06-1998','%d-%m-%Y'), 'Repair Head');
+
+insert into zone values(60, 'Ancient History');
+insert into zone values(61, 'Stone Age');
+insert into zone values(62, 'Ice Age');
+insert into zone values(63, 'Medieval');
+insert into zone values(64, 'Early Modern Era');
+
+insert into artifacts values(300, 'Dinosaur','Fossil', 60);
+insert into artifacts values(301, 'Komodo dragon','Fossil', 60);
+insert into artifacts values(302, 'Hammer stone', 'Tools', 61);
+insert into artifacts values(303, 'Spear', 'Tools', 61);
+insert into artifacts values(304, 'Mammoth','Tusks', 62);
+insert into artifacts values(305, 'Mastodon','Bones', 62);
+insert into artifacts values(306, 'King Tut', 'Mummy', 63);
+insert into artifacts values(307, 'Pharaoh', 'Mummy', 63);
+insert into artifacts values(308, 'Kohinoor','Diamond', 64);
+insert into artifacts values(309, 'King Arthur','Sword', 64);
+insert into artifacts values(310, 'Mosquito Amber','Fossil', 60);
+insert into artifacts values(311, 'Megaladon Teeth','Teeth', 60);
+insert into artifacts values(312, 'Viking Glass', 'Game Pieces', 63);
+
+
+insert into visitor values(1000, 'Varun', '8199022941', 'varun@gmail.com', STR_TO_DATE('01-12-1991','%d-%m-%Y'), 'Engineer');
+insert into visitor values(1001, 'Tarun', '5681262941', 'tarun@gmail.com', STR_TO_DATE('02-05-1980','%d-%m-%Y'), 'Lawyer');
+insert into visitor values(1002, 'Anjali', '9280028812', 'anjali@gmail.com', STR_TO_DATE('18-09-2005','%d-%m-%Y'), 'Student');
+insert into visitor values(1003, 'Parth', '7800122537', 'parth@gmail.com', STR_TO_DATE('11-6-2002','%d-%m-%Y'), 'Student');
+insert into visitor values(1004, 'Dhruv', '822899124', 'dhruv@gmail.com', STR_TO_DATE('31-03-1956','%d-%m-%Y'), 'Doctor');
+
+insert into maintenance values(500, STR_TO_DATE('31-01-2021','%d-%m-%Y'), 'Completed', 'Repair', 60, 107);
+insert into maintenance values(501, STR_TO_DATE('28-05-2021','%d-%m-%Y'), 'Completed', 'Repair', 61, 105);
+insert into maintenance values(502, STR_TO_DATE('16-09-2021','%d-%m-%Y'), 'Completed', 'Cleaning', 62, 106);
+insert into maintenance values(503, STR_TO_DATE('10-12-2022','%d-%m-%Y'), 'Pending', 'Repair', 63, 104);
+insert into maintenance values(504, STR_TO_DATE('15-01-2022','%d-%m-%Y'), 'Pending', 'Cleaning', 64, 106);
+
+insert into entry values(STR_TO_DATE('03-01-2021','%d-%m-%Y'), '3:15', 120, 'Adult', 250, 1000, 60);
+insert into entry values(STR_TO_DATE('02-03-2021','%d-%m-%Y'), '1:20', 65, 'Adult', 250, 1001, 61);
+insert into entry values(STR_TO_DATE('02-03-2021','%d-%m-%Y'), '4:30', 95, 'Senior Citizen', 150, 1004, 64);
+insert into entry values(STR_TO_DATE('11-05-2021','%d-%m-%Y'), '11:37', 85, 'Kid', 100, 1002, 62);
+insert into entry values(STR_TO_DATE('16-06-2021','%d-%m-%Y'), '12:45', 165, 'Kid', 100, 1003, 63);
+insert into entry values(STR_TO_DATE('30-10-2021','%d-%m-%Y'), '4:30', 95, 'Senior Citizen', 150, 1004, 64);
+insert into entry values(STR_TO_DATE('30-10-2021','%d-%m-%Y'), '12:45', 165, 'Kid', 100, 1003, 63);
+insert into entry values(STR_TO_DATE('30-10-2021','%d-%m-%Y'), '1:20', 65, 'Adult', 250, 1001, 61);
+
+DELIMITER //
+CREATE TRIGGER newEntryPrice
+BEFORE INSERT ON entry FOR EACH ROW
+BEGIN
+IF NEW.category = 'Infant' THEN SET NEW.price = 50;
+ELSEIF NEW.category = 'Kid' THEN SET NEW.price = 100;
+ELSEIF NEW.category = 'Adult' THEN SET NEW.price = 250;
+ELSEIF NEW.category = 'Senior Citizen' THEN SET NEW.price = 150;
+END IF;
+END //
+
+DELIMITER //
+CREATE PROCEDURE totalSalesOnDate(IN SelectedDate date, OUT TotalSales int)
+BEGIN
+SELECT SUM(price) from entry where dateentry = SelectedDate;
+END //
+
+DELIMITER //
+CREATE PROCEDURE totalSalesOnYear(IN SelectedYear varchar(4), OUT TotalSales int)
+BEGIN
+SELECT SUM(price) from entry where extract(year from dateentry) = SelectedYear;
+END //
+
+SELECT s_name FROM staff WHERE s_id IN (SELECT s_id FROM maintenance WHERE status = 'Pending');
